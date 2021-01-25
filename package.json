@@ -1,0 +1,22 @@
+{
+  "name": "affordablity-proxy-server",
+  "version": "1.0.0",
+  "description": "A proxy server to host Archon Design's project",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Archon-Design/affordability-proxy-server.git"
+  },
+  "author": "Jacob Berg",
+  "license": "ISC",
+  "homepage": "https://github.com/Archon-Design/affordability-proxy-server/blob/main/README.md",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
