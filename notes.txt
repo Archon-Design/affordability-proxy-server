@@ -1,0 +1,146 @@
+index.html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Proxy Server</title>
+
+  </head>
+  <body>
+    <img src="./static/truliaNav.png">
+    <div id="gallery"></div>
+    <div id="similar"></div>
+    <div id="reviews"></div>
+    <div id="affordability"></div>
+
+    <script src="api/gallery"></script>
+    <script src="api/reviews"></script>
+    <script src="api/similar"></script>
+    <script src="api/calculator"></script>
+  </body>
+</html>
+
+
+
+server/index.js
+
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const routes = require('./routes.js');
+const port = 3000;
+const app = express();
+
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(cors());
+app.use(express.json());
+
+app.get('/api/gallery', routes.getGallery);
+app.get('/api/similar', routes.getSimilar);
+app.get('/api/reviews', routes.getReviews);
+app.get('/api/calculator', routes.getCalculator);
+
+
+app.listen(port, () => {console.log('Proxy listening on Port 3000'); });
+
+
+
+routes.js
+
+const axios = require('axios');
+
+
+const getGallery = (req, res) => {
+  axios.get('http://localhost:3002/1')
+    .then((result) => {
+      let { data } = result;
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}
+
+const getSimilar = (req, res) => {
+  axios.get('http://localhost:3001/1')
+    .then((result) => {
+      let { data } = result;
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}
+
+const getReviews = (req, res) => {
+  axios.get('http://localhost:3004/1')
+    .then((result) => {
+      let { data } = result;
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}
+
+const getCalculator = (req, res) => {
+  axios.get('http://localhost:3003/1')
+    .then((result) => {
+      let { data } = result;
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}
+
+module.exports = {
+  getGallery, getSimilar, getReviews, getCalculator
+}
+
+
+const express = require("express");
+const axios = require("axios");
+
+const bundles = express.Router();
+
+bundles.get('/affordability', (req, res) => {
+  axios.get("http://localhost:3003/1")
+  .then(({data}) => {
+    console.log('affordability bundles sending.');
+    res.status(200).send(data);
+  })
+  .catch((err) => res.status(400).send(err))
+});
+
+bundles.get('/similar', (req, res) => {
+  axios.get("http://localhost:3001/1")
+  .then(({data}) => {
+    console.log('similar homes bundles sending.');
+    res.status(200).send(data);
+  })
+  .catch((err) => res.status(400).send(err))
+});
+
+bundles.get("/reviews", (req, res) => {
+  axios
+    .get("http://localhost:3004/1")
+    .then(({ data }) => {
+      console.log("reviews homes bundles sending.");
+      res.status(200).send(data);
+    })
+    .catch((err) => res.status(400).send(err));
+});
+
+bundles.get("/reviews", (req, res) => {
+  axios
+    .get("http://localhost:3004/1")
+    .then(({ data }) => {
+      console.log("reviews homes bundles sending.");
+      res.status(200).send(data);
+    })
+    .catch((err) => res.status(400).send(err));
+});
+
+module.exports = bundles;
