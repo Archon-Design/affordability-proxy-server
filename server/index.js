@@ -56,7 +56,7 @@ app.use(
 
 //Calculator
 app.use(
-  "/mortgages",
+  "/mortgage",
   createProxyMiddleware({ target: "http://ec2-3-135-210-129.us-east-2.compute.amazonaws.com:3003/", changeOrigin: true })
 );
 app.use(
